@@ -1,5 +1,6 @@
 # springframework && JAVA
-spring frame work와 관련 내용을 정리합니다.
+- spring frame work와 관련 내용을 정리합니다.
+- 여러개의 프로젝트를 하나로 관리하는 과정에서 설정파일에 개인정보 관리가 귀찮아서 application.properties와 yml 파일은 반드시 `local`에서 잘 관리
 
 ## JAVA 관련
 
