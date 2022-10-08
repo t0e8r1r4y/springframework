@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/lib/bootstrap.min.css}" rel="stylesheet" />
+    <title>Manager Management form</title>
+</head>
+<body>
+    <h1>Manager Login</h1>
+    <hr>
+    <form action="loginresult" method="GET" >
+        <div>
+            <input name="employeeId" type="number" placeholder="매니저 사원번호를 입력해주세요." style="margin: auto; width: 250px; padding: 10px; margin: 10px;" >
+        </div>
+        <div>
+            <input name="firstName" type="text" placeholder="first name을 입력해주세요" style="margin: auto; width: 250px; padding: 10px; margin: 10px;">
+        </div>
+        <div>
+            <input name="lastName" type="text" placeholder="last name을 입력해주세요" style="margin: auto; width: 250px; padding: 10px; margin: 10px;">
+        </div>
+        <div>
+            <input name="departmentId" type="text" placeholder="부서번호를 입력해주세요" style="margin: auto; width: 250px; padding: 10px; margin: 10px;">
+        </div>
+
+        <button>로그인</button>
+    </form>
+</body>
+</html>

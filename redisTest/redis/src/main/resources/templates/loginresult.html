@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Manager Management form</title>
+    <link th:href="@{/css/lib/bootstrap.min.css}" rel="stylesheet" />
+</head>
+<body>
+    <h1>Manager Result</h1>
+    <hr>
+    <table border="1"  width ="500"  align = "center" >
+        <th align = "center"; width="100px">사원번호</th>
+        <th align = "center"; width="200px">생년월일</th>
+        <th align = "center"; width="150px">이름</th>
+        <th align = "center"; width="150px">성</th>
+        <th align = "center"; width="50px">성별</th>
+        <th align = "center"; width="150px">입사일자</th>
+        <tr th:each="users : ${UsersResponseDtoList}" align = "center" >
+            <td><span th:text="${users.id}"></span></td>
+            <td><span th:text="${users.birth}"></span></td>
+            <td><span th:text="${users.lastName}"></span></td>
+            <td><span th:text="${users.firstName}"></span></td>
+            <td><span th:text="${users.sex}"></span></td>
+            <td><span th:text="${users.joinDate}"></span></td>
+    <!--        <td><span th:text="${#temporals.format(board.updateTime, 'yyyy-MM-dd HH:mm:ss')}"></span></td>-->
+        </tr>
+    </table>
+</body>
+</html>

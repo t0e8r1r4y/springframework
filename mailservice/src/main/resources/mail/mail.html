@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div>
+        <p> 안녕하세요.<span th:text="${name}"></span> 님 </p>
+        <h2 th:text="${message}"> 관련 포스팅을 추천합니다. </h2>
+        <table border="1">
+            <tr>
+                <th style="width 50px;">No</th>
+                <th style="width 150px;">Title</th>
+                <th style="width 150px;">Content</th>
+                <th style="width 170px;">RegData</th>
+            </tr>
+            <tr th:each="post : ${list}" align="center">
+                <td th:text="${post.idx}"></td>
+                <td th:text="${post.title}"></td>
+                <td th:text="${post.content}"></td>
+                <td th:text="${#dates.format(post.regDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
