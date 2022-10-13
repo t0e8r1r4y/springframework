@@ -16,6 +16,8 @@
 
 
 ## 어노테이션 정리
+- @Transactional
+- @Async
 - [@scheduled](https://github.com/t0e8r1r4y/springframewordk/blob/main/annotation/schedule.md)
 
 ## 빌드 도구
