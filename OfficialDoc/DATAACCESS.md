@@ -33,5 +33,5 @@
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
    [트랜잭션원문]: <https://docs.spring.io/spring-framework/docs/current/reference/html/data-access.html#spring-data-tier>
    [트랜잭션요약]: <>
-   [트랜잭션정리상세]: <>
+   [트랜잭션정리상세]: <https://github.com/t0e8r1r4y/springframewordk/blob/main/OfficialDoc/DataAccess/TransactionManagement.md>
 
