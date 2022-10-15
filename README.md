@@ -31,7 +31,7 @@
 | Overview | history, design philosophy, feedback, getting started. |
 | Core | IoC Container, Events, Resources, i18n, Validation, Data Binding, Type Conversion, SpEL, AOP. |
 | Testing | Mock Objects, TestContext Framework, Spring MVC Test, WebTestClient. |
-| [Data Access][데이터엑세스] | [Transactions][트랜잭션], DAO Support, JDBC, R2DBC, O/R Mapping, XML Marshalling. |
+| [Data Access][데이터엑세스] | [Transactions][트랜잭션], DAO Support, JDBC, R2DBC, [O/R Mapping][ORM매핑], XML Marshalling. |
 | Web Servlet | Spring MVC, WebSocket, SockJS, STOMP Messaging. |
 | Web Reactive | Spring WebFlux, WebClient, WebSocket, RSocket. |
 | Integration | Remoting, JMS, JCA, JMX, Email, Tasks, Scheduling, Caching. |
@@ -77,3 +77,4 @@
    [스프링의존성예시]: <https://github.com/spring-projects/spring-kafka/tree/main/samples>
    [데이터엑세스]: <https://github.com/t0e8r1r4y/springframewordk/blob/main/OfficialDoc/DATAACCESS.md>
    [트랜잭션]: <https://github.com/t0e8r1r4y/springframewordk/blob/main/OfficialDoc/DataAccess/TransactionManagement.md>
+   [ORM매핑]: <https://github.com/t0e8r1r4y/springframewordk/blob/main/OfficialDoc/DataAccess/ORMMapping.md>
