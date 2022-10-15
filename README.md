@@ -22,6 +22,7 @@
 | 스프링 공식문서 | [link][스프링공식] |
 | 토리맘의 한글 번역 | [link][스프링공식번역] |
 | Spring Initializr | [link][스프링프로젝트생성] |
+| 스프링 프레임워크에서 제공하는 의존성과 관련 예시 | [link][스프링의존성예시] |
                                                                          
 ## :crown: 스프링에 대한 모든것 ( 필요한 내용 하나씩 번역하고 정리 )
 
@@ -73,3 +74,4 @@
    [스프링공식]: <https://docs.spring.io/spring-framework/docs/current/reference/html/>
    [스프링공식번역]: <https://godekdls.github.io/>
    [스프링프로젝트생성]: <https://start.spring.io>
+   [스프링의존성예시]: <https://github.com/spring-projects/spring-kafka/tree/main/samples>
