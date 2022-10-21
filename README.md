@@ -50,6 +50,7 @@
 - [hibernate auto-ddl 설정관리](https://github.com/t0e8r1r4y/springframewordk/blob/main/hibernate/ddl_auto.md)
 - [h2 데이터베이스에서 테이블 데이터 export 명령어](https://github.com/t0e8r1r4y/springframewordk/blob/main/hibernate/h2-data-export.md)
 - [커스텀 엔티티 ID 부여하는 방법](https://github.com/t0e8r1r4y/springframewordk/blob/main/hibernate/Identifiers.md)
+- [JPA 자동 생성 쿼리 메소드 명명 규칙](https://github.com/t0e8r1r4y/springframewordk/blob/main/hibernate/JPA_AutoGenQuery.md)
 
 
 ## :green_apple: 어노테이션 정리
