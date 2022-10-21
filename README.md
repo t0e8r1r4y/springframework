@@ -46,9 +46,10 @@
 ## :heavy_plus_sign: 설정파일 관리하기
 
 
-##  :custard: 데이터베이스 연결 및 설정 관련 팁
+##  :custard: 데이터베이스 연결 및 설정, 사용 관련 팁
 - [hibernate auto-ddl 설정관리](https://github.com/t0e8r1r4y/springframewordk/blob/main/hibernate/ddl_auto.md)
 - [h2 데이터베이스에서 테이블 데이터 export 명령어](https://github.com/t0e8r1r4y/springframewordk/blob/main/hibernate/h2-data-export.md)
+- [커스텀 엔티티 ID 부여하는 방법](https://github.com/t0e8r1r4y/springframewordk/blob/main/hibernate/Identifiers.md)
 
 
 ## :green_apple: 어노테이션 정리
