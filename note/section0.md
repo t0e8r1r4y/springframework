@@ -4,6 +4,8 @@
 
 ## 프로젝트 생성
 
+<br/>
+
 ## 컨트롤러 생성
 - 보통 SSR, SPA, 등을 많이 쓴다.
 - SSR -> Jsp, thymeleaf, mustache, freemarker -> html rendering
@@ -80,9 +82,42 @@ BUILD SUCCESSFUL in 5s
 12:55:45 PM: 실행이 완료되었습니다 ':test --tests "com.hodolog.hodollog.controller.PostControllerTest.test"'.
 ```
 
+<br/>
 
 ## POST 데이터 콘텐츠 타입
+- Http Method는 뭐가 있을까?
+- GET, POST, PUT, PATCH, DELETE, OPTIONS, HEAD, TRACE, CONNECT
+- 적어도 이 9개는 모두 알고 있어야 한다.
+- 지금은 applicaion/json으로 통신을 많이한다.
+- 예전에는 application/xml-xxx-encoding 이런식으로 썻다.
+- 코드 작성 시 생산성을 높이는 방법 1 - alt + n을 누르면 필요한 코드를 generate 할 수 있는 창이 뜬다.
+- json 타입으로 요청을 주고 받는 예시는 아래와 같다. 아래 방법에서는 json을 사용하는 방식을 사용하고 있으며 입력 요청은 dto를 생성해서 사용하는 방법을 쓰고 있음.
+```aidl
+    @PostMapping("/v1/posts4")
+    public  String post4(@RequestBody PostCreate params) {
+        log.info("params={}", params.toString());
+        return "test4";
+    }
+```
+- 테스트 코드는 아래와 같습니다.
+```aidl
+    @Test
+    @DisplayName("/v1/posts4 요청시 test4을 출력한다.")
+    void post4() throws Exception {
+        mockMvc.perform(post("/v1/posts4")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"titme\": \"제목입니다.\", \"content\": \"내용입니다.\"}"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("test4"))
+                .andDo(print());
+    }
+```
 
+- 내 나름의 결론
+  - 일단 아래 나올 내용이지만 데이터 검증 측면에서 dto를 쓰는 것이 편할 때가 더 많습니다.
+  - 검증과 과련된 로직을 별도의 annotation으로 작성하더라도 dto를 쓰는 것이 코드 가독성 향상 목적에서는 더 좋아보입니다.
+
+<br/>
 
 ## 데이터 검증-1
 
