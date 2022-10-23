@@ -32,7 +32,7 @@ public class PostService {
     }
 
     public PostResponse get(Long id) {
-        Post post = postRepository.findById(id).orElseThrow(() -> new PostNotFound());
+        Post post = postRepository.findById(id).orElseThrow(() -> new PostNotFound()); // PostNotFound::new
         return new PostResponse(post);
     }
 

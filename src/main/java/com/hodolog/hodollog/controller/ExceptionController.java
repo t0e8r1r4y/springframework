@@ -1,6 +1,8 @@
 package com.hodolog.hodollog.controller;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.hodolog.hodollog.dto.ErrorResponse;
+import com.hodolog.hodollog.exception.PostNotFound;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 
 @ControllerAdvice
+@JsonInclude(value = JsonInclude.Include.NON_EMPTY)
 public class ExceptionController {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST) // 응답에 보낼 것  -> 나중에는 실제 번호를 맞게 넣어야 한다.
@@ -22,6 +25,18 @@ public class ExceptionController {
         for(FieldError fieldError : e.getFieldErrors()) {
             response.addValidation(fieldError.getField(), fieldError.getDefaultMessage());
         }
+        return response;
+    }
+
+    @ResponseBody
+    @ResponseStatus(HttpStatus.NOT_FOUND) // 응답에 보낼 것  -> 나중에는 실제 번호를 맞게 넣어야 한다.
+    @ExceptionHandler(PostNotFound.class)
+    public ErrorResponse postNotFound(PostNotFound e){
+        ErrorResponse response = ErrorResponse.builder()
+                .code("404")
+                .message(e.getMessage())
+                .build();
+
         return response;
     }
 }

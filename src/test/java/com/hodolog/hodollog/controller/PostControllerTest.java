@@ -250,4 +250,15 @@ class PostControllerTest {
                 .andExpect(status().isOk());
     }
 
+    @Test
+    @DisplayName("존재하지 않는 게시글 조회")
+    void requestFailTest() throws Exception {
+
+        // when
+        mockMvc.perform( get("/posts/{postId}",1L )
+                        .contentType(APPLICATION_JSON))
+                .andExpect(status().isNotFound())
+                .andDo(print());
+    }
+
 }
