@@ -11,6 +11,7 @@
 
 ##  섹션0. 요절복통 블로그 API 만들기 기본
 - Controller 생성 및 테스트에 관한 기본 내용 [링크](https://github.com/t0e8r1r4y/Hodolman-s-abdominal-pain-development-show/pull/2)
+- Controller에서 데이터를 주고 받을 때 Json 타입으로 주고 받기 [링크](https://github.com/t0e8r1r4y/Hodolman-s-abdominal-pain-development-show/pull/4)
 
 <br/>
 
