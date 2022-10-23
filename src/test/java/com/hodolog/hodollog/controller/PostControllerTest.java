@@ -127,7 +127,8 @@ class PostControllerTest {
     @DisplayName("/post7 요청시 DB에 값이 저장된다.")
     void post7() throws Exception {
         // Given
-        PostCreate request = new PostCreate("제목임다.", "내용입니다.");
+        PostCreate request = PostCreate.builder()
+                .title("제목임다.").content("내용입니다.").build();
         ObjectMapper objectMapper = new ObjectMapper();
         String given = objectMapper.writeValueAsString(request);
 
