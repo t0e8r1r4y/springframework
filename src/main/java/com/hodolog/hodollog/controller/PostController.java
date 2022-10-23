@@ -5,6 +5,8 @@ import com.hodolog.hodollog.dto.PostResponse;
 import com.hodolog.hodollog.service.PostService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
@@ -109,5 +111,15 @@ public class PostController {
     public List<PostResponse> getList() {
         return postService.getList();
     }
+
+    @GetMapping("/pageposts")
+    public List<PostResponse> getList( Pageable pageable) { // Pageable 앞에 PageableDefault 라고 쓸 수 있다. 혹은 @PageableDefault(size = 10) 이런식으로 가능
+        return postService.getListByPage2(pageable);
+    }
+
+    // 아래와 같이 받으면 안된다.
+//    public List<PostResponse> getList(@RequestParam int page) {
+//        return postService.getListByPage(page);
+//    }
 
 }

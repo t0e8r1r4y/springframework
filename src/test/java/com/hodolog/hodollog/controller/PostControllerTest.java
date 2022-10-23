@@ -16,6 +16,8 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
@@ -189,6 +191,25 @@ class PostControllerTest {
                 .andExpect(jsonPath("$.length()", Matchers.is(100)))
                 .andExpect(jsonPath("$[0].id").value(1L))
                 .andExpect(jsonPath("$[50].title").value("제목50"))
+                .andDo(print());
+    }
+
+    @Test
+    @DisplayName("글 여러개 조회 시 페이징 처리")
+    void getListByPage() throws Exception {
+        // given
+        List<Post> requestPosts = IntStream.range(0,30)
+                .mapToObj( i -> {
+                    return Post.builder().title("테스트 제목 - " + i)
+                            .content("둔촌주공아파트 - " + i)
+                            .build();
+                }).collect(Collectors.toList());
+
+        postRepository.saveAll(requestPosts);
+
+        // when
+        mockMvc.perform(get("/pageposts?page=1&sort=id,desc&size=5").contentType(APPLICATION_JSON))
+                .andExpect(status().isOk())
                 .andDo(print());
     }
 }
