@@ -329,6 +329,34 @@ public class Example {
 - findAll을 사용해서 조회하는 방법
 
 ## 게시글 조회 4 - 페이징 처리
+- 페이징이 필요한 경우
+  - 글이 너무 많은경우 => 비용이 너무 많이 든다.
+  - 글이 백만건 이백만건이인 경우 모두 조회하는 경우 ->DB가 뻗을 수 있다.
+  - DB -> 애플리케이션 서버로 전달하는 시간, 트래픽 비용이 많이 들어갈 수 있다.
+  - sql에서 select, limit, offset 같은 것들은 무조건 다 알고 있어야 한다.
+  - 페이징을 적용하는 방법은 간단하다. 아래 코드를 보라
+
+```java
+  @GetMapping("/pageposts")
+  public List<PostResponse> getList( Pageable pageable) { // Pageable 앞에 PageableDefault 라고 쓸 수 있다. 혹은 @PageableDefault(size = 10) 이런식으로 가능
+      return postService.getListByPage2(pageable);
+  }
+```
+
+```java
+  public List<PostResponse> getListByPage2(Pageable pageable)  {
+
+      return postRepository.findAll(pageable).stream().map(PostResponse::new).collect(Collectors.toList());
+  }
+```
+
+```yaml
+  data:
+    web:
+      pageable:
+        one-indexed-parameters: true
+        default-page-size: 10
+```
 
 
 ## 게시글 조회 5 - 페이징 처리(QeuryDSL)

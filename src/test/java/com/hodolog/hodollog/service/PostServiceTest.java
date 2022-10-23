@@ -10,6 +10,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -83,7 +85,30 @@ class PostServiceTest {
             assertEquals(postList.get(i).getTitle(), postResultList.get(i).getTitle());
             assertEquals(postList.get(i).getContent(), postResultList.get(i).getContent());
         }
+    }
 
+    @Test
+    @DisplayName("페이징 처리")
+    void getListByPaging() {
+        // sql에서 select, limit, offset 같은 것들은 무조건 다 알고 있어야 한다.
+        //given
+        List<Post> requestPosts = IntStream.range(0,30)
+                .mapToObj( i -> {
+                    return Post.builder().title("테스트 제목 - " + i)
+                            .content("둔촌주공아파트 - " + i)
+                            .build();
+                }).collect(Collectors.toList());
+
+        postRepository.saveAll(requestPosts);
+
+        List<PostResponse> posts = postService.getListByPage(0);
+
+        assertEquals(posts.size(), 5);
+        for(PostResponse p : posts) {
+            System.out.println(p.getTitle());
+        }
+        assertEquals(posts.get(0).getTitle(), "테스트 제목 - 29");
+        assertEquals(posts.get(4).getTitle(), "테스트 제목 - 25");
 
     }
 }
