@@ -1,6 +1,8 @@
 package com.hodolog.hodollog.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hodolog.hodollog.domain.Post;
+import com.hodolog.hodollog.dto.PostCreate;
 import com.hodolog.hodollog.repository.PostRepository;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -124,10 +126,15 @@ class PostControllerTest {
     @Test
     @DisplayName("/post7 요청시 DB에 값이 저장된다.")
     void post7() throws Exception {
+        // Given
+        PostCreate request = new PostCreate("제목임다.", "내용입니다.");
+        ObjectMapper objectMapper = new ObjectMapper();
+        String given = objectMapper.writeValueAsString(request);
+
         // when
         mockMvc.perform(post("/v1/posts7")
                         .contentType(APPLICATION_JSON)
-                        .content("{\"title\": \"제목임다.\", \"content\": \"내용입니다.\"}"))
+                        .content(given))
                 .andExpect(status().isOk())
                 .andDo(print());
         // then
