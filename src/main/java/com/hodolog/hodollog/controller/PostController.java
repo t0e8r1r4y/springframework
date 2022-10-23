@@ -1,8 +1,9 @@
 package com.hodolog.hodollog.controller;
 
 import com.hodolog.hodollog.dto.PostCreate;
+import com.hodolog.hodollog.service.PostService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.annotations.common.reflection.XMethod;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
@@ -14,9 +15,10 @@ import java.util.Map;
 
 @RestController
 @Slf4j
+@RequiredArgsConstructor
 public class PostController {
 
-//    @RequestMapping(method = RequestMethod.GET, path = "/v1/posts")
+    private final PostService postService;
     @PostMapping("/v1/posts")
     public String post(@RequestParam String title, @RequestParam String content) {
         log.info("title = {}, content={}", title, content);
@@ -99,5 +101,12 @@ public class PostController {
 
         return Map.of();
     }
+
+    @PostMapping("/v1/posts7")
+    public Map<String, String> post7(@RequestBody @Valid PostCreate params) {
+        postService.write(params);
+        return Map.of();
+    }
+
 
 }

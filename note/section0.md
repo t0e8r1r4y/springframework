@@ -231,7 +231,49 @@ public class PostCreate {
 - 여기서 발생할 수 있는 에러 종류에 따라서 어노테이션과 메서드를 적절히 추가해서 확인한다.
 
 ## 작성글 저장1 - 게시글 저장 구현
+- service와 repository를 생성하고 실제 요청 받은 결과를 저장하는 로직입니다.
+- 호돌맨님 과정과는 다르게 Builder pattern을 사용하여 객체를 저장하였습니다.
+- 테스트 과정에서 아래 내용이 중요합니다.
+  - 각각의 테스트가 서로 영향을 받지 않도록 하는 장치가 필요합니다. @BeforeAll을 사용하면 각 메서드를 실행하기 전에 초기화를 할 수 있습니다.
+  - 그리고 @BeforeAll을 사용하기 위해서는 전체 테스트에 @TestInstance(TestInstance.Lifecycle.PER_CLASS)을 작성합니다.
+  - 그리고 현재 Controller 단에서 service까지 호춣하여 테스트하고 있습니다. 보통 이에대해서는 권장하지는 않는 방식입니다만 굳이 하려고 하면 @SpringBootTest 어노테이션을 붙여주어야 합니다.
+```java
+@SpringBootTest
+@AutoConfigureMockMvc
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+class PostControllerTest {
 
+  @Autowired
+  private MockMvc mockMvc;
+
+  @Autowired
+  private PostRepository postRepository;
+
+  @BeforeAll
+  void setUpDB() {
+    postRepository.deleteAll();
+  }
+  
+  ...
+
+  @Test
+  @DisplayName("/post7 요청시 DB에 값이 저장된다.")
+  void post7() throws Exception {
+    // when
+    mockMvc.perform(post("/v1/posts7")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content("{\"title\": \"제목임다.\", \"content\": \"내용입니다.\"}"))
+            .andExpect(status().isOk())
+            .andDo(print());
+    // then
+    Assertions.assertEquals(1L, postRepository.count());
+
+    Post post = postRepository.findAll().get(0);
+    Assertions.assertEquals("제목임다.", post.getTitle());
+    Assertions.assertEquals("내용입니다.", post.getContent());
+  }
+}
+```
 
 ## 작성글 저장 2 - 클래스 분리
 
