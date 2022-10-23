@@ -17,7 +17,6 @@ import java.util.Map;
  *     }
  * }
  */
-@RequiredArgsConstructor
 @Getter
 public class ErrorResponse {
     private final String code;
