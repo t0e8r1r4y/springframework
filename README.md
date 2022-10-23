@@ -19,6 +19,7 @@
 - 페이징쿼리 적용하기 [링크](https://github.com/t0e8r1r4y/Hodolman-s-abdominal-pain-development-show/pull/20)
 - 페이징쿼리 적용하기(queryDSL) [링크](https://github.com/t0e8r1r4y/Hodolman-s-abdominal-pain-development-show/pull/22)
 - 페이징쿼리 관련해서 좋은글 [링크](https://ict-nroo.tistory.com/117)
+- 수정 관련해서 builder를 리턴하여 사용하는 호돌맨님의 노하우 [링크]()
 
 <br/>
 
