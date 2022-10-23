@@ -497,3 +497,99 @@ public class PostNotFound extends RuntimeException{
 
 
 ## 예외처리2
+- 예외 처리의 종류가 많아지게 되면 관리가 어렵게 됩니다
+- 그것을 해소하기 위해서 예외를 class 단위로 구분하는데 대장 역할을 할 수 있는 abstract class를 선언하여 처리합니다.
+- 추상 클래스는 아래와 같습니다.
+```java
+@Getter
+public abstract class BlogException extends RuntimeException {
+
+    private final Map<String, String> validation = new HashMap<>();
+    public BlogException(String message) {
+        super(message);
+    }
+
+    public BlogException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public abstract int statusCode();
+
+    public void addValidation(String fieldName, String message) {
+        validation.put(fieldName, message);
+    }
+}
+```
+- 추상클래스를 상속하는 예외는 두가지가 있습니다.
+```java
+@Getter
+public class InvalidRequest extends BlogException{
+
+    private static final String MESSAGE = "잘못된 요청입니다.";
+
+    private String fieldName;
+    private String message;
+
+    public InvalidRequest(String fieldName, String message) {
+        super(MESSAGE);
+        addValidation(fieldName, message);
+    }
+
+    public InvalidRequest(String message, Throwable cause) {
+        super(MESSAGE, cause);
+    }
+
+    public InvalidRequest() {
+        super(MESSAGE);
+    }
+
+    @Override
+    public int statusCode() {
+        return 400;
+    }
+}
+```
+
+```java
+/**
+ * 정책상 -> 404
+ */
+public class PostNotFound extends BlogException{
+
+    private static final String MESSAGE = "존재하지 않는 글입니다.";
+
+    public PostNotFound() {
+        super(MESSAGE);
+    }
+
+    public PostNotFound(Throwable cause) {
+        super(MESSAGE, cause);
+    }
+
+    @Override
+    public int statusCode() {
+        return 404;
+    }
+}
+```
+
+- 위 내용으로 예외를 던지면 아래 컨트롤러에서 처리합니다.
+```java
+  @ResponseBody
+  @ExceptionHandler(BlogException.class)
+  public ResponseEntity<ErrorResponse> ErrorResponse (BlogException e){
+
+      int statusCode = e.statusCode();
+
+      ErrorResponse body = ErrorResponse.builder()
+              .code(String.valueOf(statusCode))
+              .message(e.getMessage())
+              .validation(e.getValidation())
+              .build();
+
+
+      return ResponseEntity.status(statusCode)
+              .body(body);
+  }
+```
+- 예외를 잘 정의해야된다.
