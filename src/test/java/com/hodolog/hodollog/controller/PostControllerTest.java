@@ -2,6 +2,7 @@ package com.hodolog.hodollog.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hodolog.hodollog.domain.Post;
+import com.hodolog.hodollog.domain.PostEditor;
 import com.hodolog.hodollog.dto.PostCreate;
 import com.hodolog.hodollog.dto.PostResponse;
 import com.hodolog.hodollog.repository.PostRepository;
@@ -23,6 +24,7 @@ import java.util.stream.IntStream;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -216,4 +218,25 @@ class PostControllerTest {
 //                .andExpect(status().isOk())
 //                .andDo(print());
     }
+
+    @Test
+    @DisplayName("글 제목 수정")
+    void patchPost() throws Exception {
+        // given
+        Post post = Post.builder().title("호돌맨").content("반포자이").build();
+        postRepository.save(post);
+
+        // when
+        PostEditor postEditor = PostEditor.builder().title("소련여자").content("반포자이").build();
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        mockMvc.perform(patch("/posts/{postId}", post.getId())
+                        .contentType(APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(postEditor))
+                )
+                .andExpect(status().isOk());
+
+        //then
+    }
+
 }

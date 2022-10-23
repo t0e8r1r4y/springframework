@@ -1,6 +1,8 @@
 package com.hodolog.hodollog.controller;
 
+import com.hodolog.hodollog.domain.PostEditor;
 import com.hodolog.hodollog.dto.PostCreate;
+import com.hodolog.hodollog.dto.PostEdit;
 import com.hodolog.hodollog.dto.PostResponse;
 import com.hodolog.hodollog.dto.PostSearch;
 import com.hodolog.hodollog.service.PostService;
@@ -120,5 +122,10 @@ public class PostController {
 //    public List<PostResponse> getList(@RequestParam int page) {
 //        return postService.getListByPage(page);
 //    }
+
+    @PatchMapping("/posts/{postId}")
+    public PostResponse edit(@PathVariable Long postId, @RequestBody @Valid PostEdit reuest) {
+        return postService.edit(postId, reuest);
+    }
 
 }
