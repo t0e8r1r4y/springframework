@@ -10,7 +10,7 @@
 <br/>
 
 ##  섹션0. 요절복통 블로그 API 만들기 기본
-- Controller 생성 및 테스트에 관한 기본 내용 [링크](https://github.com/t0e8r1r4y/Hodolman-s-abdominal-pain-development-show/issues/1)
+- Controller 생성 및 테스트에 관한 기본 내용 [링크](https://github.com/t0e8r1r4y/Hodolman-s-abdominal-pain-development-show/pull/2)
 
 <br/>
 
