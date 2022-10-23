@@ -442,6 +442,33 @@ public interface PostRepository extends JpaRepository<Post,Long>, PostRepository
 ```
 
 ## 게시글 수정
+- 호돌맨님의 노하우가 깃들어 있음
+- 1단계. 컨트롤러에서는 Patch를 사용하여 하나 만든다.
+```java
+  @PatchMapping("/posts/{postId}")
+  public PostResponse edit(@PathVariable Long postId, @RequestBody @Valid PostEdit reuest) {
+      return postService.edit(postId, reuest);
+  }
+```
+- 2단계. service
+  - postEditor라는 클래스를 선언하고 Post 클래스에서 PostEditor의 빌더를 리턴한다.
+  - 빌더 패턴으로 필요한 값을 추가한뒤 builder로 끝맺고 객체를 생성한다.
+```java
+  @Transactional
+  public PostResponse edit(Long id, PostEdit postEdit){
+      Post post = postRepository.findById(id).orElseThrow(()->new IllegalArgumentException("존재하지 않는 글입니다."));
+
+      PostEditor.PostEditorBuilder postEditorBuilder = post.toEditor();
+
+      PostEditor postEditor = postEditorBuilder.title(postEdit.getTitle()).content(postEdit.getContent()).build();
+
+      post.edit(postEditor);
+
+      return new PostResponse(post);
+
+  }
+```
+- 수정에 대해서 클라이언트의 요청이 있으면 return을 만들되 대게는 그렇게 하지 않는다.
 
 
 ## 게시글 수정( 오류서정, 보충내용)

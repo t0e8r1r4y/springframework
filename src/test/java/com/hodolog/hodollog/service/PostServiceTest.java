@@ -2,14 +2,13 @@ package com.hodolog.hodollog.service;
 
 import com.hodolog.hodollog.domain.Post;
 import com.hodolog.hodollog.dto.PostCreate;
+import com.hodolog.hodollog.dto.PostEdit;
 import com.hodolog.hodollog.dto.PostResponse;
 import com.hodolog.hodollog.dto.PostSearch;
 import com.hodolog.hodollog.repository.PostRepository;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -136,5 +135,41 @@ class PostServiceTest {
 
         assertEquals(10L,posts.size());
         assertEquals("테스트 제목 - 29",posts.get(0).getTitle());
+    }
+
+    @Test
+    @DisplayName("글 제목을 수정")
+    void edit() {
+        // given
+        Post post = Post.builder().title("테스트").content("반포자이").build();
+        postRepository.save(post);
+
+        PostEdit postEdit = PostEdit.builder().title("소련여자").build();
+
+        // when
+        postService.edit(post.getId(), postEdit);
+
+        // then
+        Post changedPost = postRepository.findById(post.getId())
+                .orElseThrow(()-> new RuntimeException("글이 존재하지 않습니다. id=" + post.getId()));
+        Assertions.assertEquals("소련여자",changedPost.getTitle());
+    }
+
+    @Test
+    @DisplayName("글 콘텐츠을 수정")
+    void editContents() {
+        // given
+        Post post = Post.builder().title("테스트").content("반포자이").build();
+        postRepository.save(post);
+
+        PostEdit postEdit = PostEdit.builder().content("소련여자").build();
+
+        // when
+        postService.edit(post.getId(), postEdit);
+
+        // then
+        Post changedPost = postRepository.findById(post.getId())
+                .orElseThrow(()-> new RuntimeException("글이 존재하지 않습니다. id=" + post.getId()));
+        Assertions.assertEquals("소련여자",changedPost.getContent());
     }
 }
