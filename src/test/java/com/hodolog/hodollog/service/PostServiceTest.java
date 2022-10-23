@@ -5,6 +5,7 @@ import com.hodolog.hodollog.dto.PostCreate;
 import com.hodolog.hodollog.dto.PostEdit;
 import com.hodolog.hodollog.dto.PostResponse;
 import com.hodolog.hodollog.dto.PostSearch;
+import com.hodolog.hodollog.exception.PostNotFound;
 import com.hodolog.hodollog.repository.PostRepository;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,6 +66,22 @@ class PostServiceTest {
         assertEquals(post.getId(), result.getId());
         assertEquals(post.getTitle(), result.getTitle());
         assertEquals(post.getContent(), result.getContent());
+    }
+
+    @Test
+    @DisplayName("글 1개 실패")
+    void getFail() {
+        // given
+        Post post = Post.builder().title("제목").content("내용").build();
+        postRepository.save(post);
+
+        // then
+        Assertions.assertThrows( PostNotFound.class, () -> {
+            postService.get(post.getId()+1);
+        });
+
+
+
     }
 
     @Test
@@ -174,6 +191,24 @@ class PostServiceTest {
     }
 
     @Test
+    @DisplayName("글 콘텐츠을 수정 실패")
+    void editContentsFail() {
+        // given
+        Post post = Post.builder().title("테스트").content("반포자이").build();
+        postRepository.save(post);
+
+        PostEdit postEdit = PostEdit.builder().content("소련여자").build();
+
+        // expect
+        postService.edit(post.getId(), postEdit);
+
+        Assertions.assertThrows( PostNotFound.class, () -> {
+            postService.edit(post.getId()+1, postEdit);
+        });
+
+    }
+
+    @Test
     @DisplayName("게시글 삭제")
     void deletePost(){
         // Given
@@ -184,5 +219,18 @@ class PostServiceTest {
         postService.delete(post.getId());
 
         Assertions.assertEquals(0,postRepository.count());
+    }
+
+    @Test
+    @DisplayName("게시글 삭제")
+    void deletePostFail(){
+        // Given
+        Post post = Post.builder().title("테스트").content("반포자이").build();
+        postRepository.save(post);
+
+        Assertions.assertThrows( PostNotFound.class, () -> {
+            postService.delete(post.getId()+1);
+        });
+
     }
 }

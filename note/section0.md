@@ -472,11 +472,28 @@ public interface PostRepository extends JpaRepository<Post,Long>, PostRepository
 
 
 ## 게시글 수정( 오류서정, 보충내용)
-
+- builder 패턴이 이해가 잘 되서 그냥 패스
 
 ## 게시글 삭제
+- 게시글 삭제는 간단하여 패스
 
 ## 예외처리1
+- 예외처리를 위해서 class를 만드는 방법에 대한 코드 작성 및 테스트 적용
+- 이런식으로 적용하면 메시지를 일관되도록 가져갈 수 있고 PostNotFound라는 이름만으로 유추가 가능하다.
+```java
+public class PostNotFound extends RuntimeException{
+
+    private static final String MESSAGE = "존재하지 않는 글입니다.";
+
+    public PostNotFound() {
+        super(MESSAGE);
+    }
+
+    public PostNotFound(Throwable cause) {
+        super(MESSAGE, cause);
+    }
+}
+```
 
 
 ## 예외처리2
