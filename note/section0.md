@@ -276,7 +276,29 @@ class PostControllerTest {
 ```
 
 ## 작성글 저장 2 - 클래스 분리
+- 빌더의 장점
+  - 가독성에 좋다.
+  - 값 생성에 대한 유여함
+  - 필요한 값만 받을 수 있다. -> 오버로딩 되는 조건 찾아본다..
+  - 객체의 불변성
+- 객체의 불변성 관련해서 아래와 같이 쓸 수 있다. 뭐가 좋은지는 판단이 좀 필요하다.
+```java
 
+public class Example {
+    private final String path;
+    
+    @Builder
+    public Example(Stirng path){
+        this.path = path;
+    }
+    
+    public Example changeValue(String path) {
+        return new Example().builder()
+                .path(path)
+                .build();
+    }
+}
+- ```
 
 ## 게시글 조회 1 - 단건조회
 
