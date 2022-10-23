@@ -22,9 +22,7 @@ import java.util.stream.IntStream;
 
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -237,6 +235,19 @@ class PostControllerTest {
                 .andExpect(status().isOk());
 
         //then
+    }
+
+    @Test
+    @DisplayName("게시글 삭제")
+    void deleteTest() throws Exception {
+        // Given
+        Post post = Post.builder().title("테스트").content("반포자이").build();
+        postRepository.save(post);
+
+        mockMvc.perform(delete("/posts/{postId}", post.getId())
+                        .contentType(APPLICATION_JSON)
+                )
+                .andExpect(status().isOk());
     }
 
 }

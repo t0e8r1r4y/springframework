@@ -127,4 +127,9 @@ public class PostController {
         return postService.edit(postId, reuest);
     }
 
+    @DeleteMapping("/posts/{postId}")
+    public void delete(@PathVariable Long postId) {
+        postService.delete(postId);
+    }
+
 }
