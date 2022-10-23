@@ -323,6 +323,7 @@ public class Example {
 - 서비스에서 응답 DTO를 나눠야 하는가?
   - 대게 Service와 WebService로 구분하여 Controller와 통신하는 서비스, 그리고 실제 서비스 로직을 구분해서 처리하는데
   - 규모가 작으면 관리 범주가 너무 쪼개지므로 하나에서 관리하기도 한다.
+- 이 강의에서 개꿀팁은 Gradle에서 Tasks > verification > test 버튼을 누르면 전체 테스트가 한번에 돌아간다.
 
 ## 게시글 조회 3 - 게시글 여러개 조회
 
