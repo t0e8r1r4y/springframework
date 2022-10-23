@@ -22,12 +22,13 @@ public class ErrorResponse {
     private final String message;
 
     //TODO : 가급적 Map을 직접사용하지 않는다. 꼭 사용한다면 일급 객체를 사용한다. -> 이건 일급 객체로 개선해봐야 함.
-    private final Map<String, String> validation = new HashMap<>();
+    private final Map<String, String> validation;
 
     @Builder
-    public ErrorResponse(String code, String message) {
+    public ErrorResponse(String code, String message, Map<String, String > validation) {
         this.code = code;
         this.message = message;
+        this.validation = validation;
     }
 
     public void addValidation(String field, String defaultMessage) {

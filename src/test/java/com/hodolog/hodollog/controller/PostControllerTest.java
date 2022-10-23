@@ -261,4 +261,22 @@ class PostControllerTest {
                 .andDo(print());
     }
 
+    @Test
+    @DisplayName("글 쓰기 요청시 잘못된 값 반환")
+    void InvalidTest() throws Exception {
+        // Given
+        PostCreate request = PostCreate.builder()
+                .title("바보새퀴.").content("내용입니다.").build();
+        ObjectMapper objectMapper = new ObjectMapper();
+        String given = objectMapper.writeValueAsString(request);
+
+        // when
+        mockMvc.perform(post("/v1/posts7")
+                        .contentType(APPLICATION_JSON)
+                        .content(given))
+                .andExpect(status().isBadRequest())
+                .andDo(print());
+
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.hodolog.hodollog.dto;
 
 import com.hodolog.hodollog.domain.Post;
+import com.hodolog.hodollog.exception.InvalidRequest;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -30,5 +31,11 @@ public class PostCreate {
                 .title(this.title)
                 .content(this.content)
                 .build();
+    }
+
+    public void isValid() {
+        if(title.contains("바보")) {
+            throw new InvalidRequest("title","제목에 바보를 입력할 수 없습니다.");
+        }
     }
 }

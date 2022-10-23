@@ -4,6 +4,7 @@ import com.hodolog.hodollog.dto.PostCreate;
 import com.hodolog.hodollog.dto.PostEdit;
 import com.hodolog.hodollog.dto.PostResponse;
 import com.hodolog.hodollog.dto.PostSearch;
+import com.hodolog.hodollog.exception.InvalidRequest;
 import com.hodolog.hodollog.service.PostService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -96,6 +97,9 @@ public class PostController {
 
     @PostMapping("/v1/posts7")
     public Map<String, String> post7(@RequestBody @Valid PostCreate params) {
+
+        params.isValid();
+
         postService.write(params);
         return Map.of();
     }
