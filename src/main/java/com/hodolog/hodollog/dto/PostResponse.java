@@ -10,6 +10,7 @@ public class PostResponse {
     private final String title;
     private final String content;
 
+    @Builder
     public PostResponse(Post post) {
         this.id = post.getId();
         this.title = post.getTitle().substring(0, Math.min(post.getTitle().length(), 10) ); // 요런 요구사항이 있으면 이것도 따로 테스트로 구현하는 것도 중요함
