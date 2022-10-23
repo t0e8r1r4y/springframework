@@ -203,25 +203,32 @@ public class PostCreate {
                       .content("{\"titme\": \"\", \"content\": \"내용입니다.\"}"))
               .andExpect(status().isOk())
               .andExpect(jsonPath("$.title").value("타이틀을 입력해주세요."))
-//                .andExpect(content().string("{}"))
               .andDo(print());
-
-      /**
-       * MockHttpServletResponse:
-       *            Status = 200
-       *     Error message = null
-       *           Headers = [Content-Type:"application/json"]
-       *      Content type = application/json
-       *              Body = {"title":"must not be blank"}
-       *     Forwarded URL = null
-       *    Redirected URL = null
-       *           Cookies = []
-       */
   }
 ```
 
 ## 데이터 검증-2
-
+- 위 방식에서 BindingResult result을 사용해서 메서드 마다 에러를 관리하게 되면 아래의 문제가 발생합니다.
+  - 에러를 매번 메서드 마다 처리해줘야 하는 문제 발생
+  - 개발자의 휴먼에러 발생
+  - 프로젝트에서 에러 관리의 일관성 저해
+  - 반복작업이 발생한다.
+  - 간지가 안난다. 개발자 스럽지 못함
+- 이를 개선하기 위해서 @ControllerAdvice를 사용하여 에러가 발생 시 해당 에러를 캐치하여 처리할 수 있음
+```java
+  @ResponseStatus(HttpStatus.BAD_REQUEST) // 응답에 보낼 것  -> 나중에는 실제 번호를 맞게 넣어야 한다.
+  @ResponseBody
+  @ExceptionHandler(MethodArgumentNotValidException.class)
+  public ErrorResponse invalidRequestHandler(MethodArgumentNotValidException e){
+      // TODO : 이렇게 처리를 하면 에러 내용의 일관성이 부족해짐. 이것에 대해서는 별도의 처리가 필요함. -> 그리고 서비스 기획시 프론트와 백엔드간 협의가 필요한 사항임
+      ErrorResponse response =  new ErrorResponse("400", "잘못된 요청입니다.");
+      for(FieldError fieldError : e.getFieldErrors()) {
+          response.addValidation(fieldError.getField(), fieldError.getDefaultMessage());
+      }
+      return response;
+  }
+```
+- 여기서 발생할 수 있는 에러 종류에 따라서 어노테이션과 메서드를 적절히 추가해서 확인한다.
 
 ## 작성글 저장1 - 게시글 저장 구현
 

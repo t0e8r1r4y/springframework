@@ -82,7 +82,6 @@ class PostControllerTest {
                         .content("{\"titme\": \"\", \"content\": \"내용입니다.\"}"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.title").value("타이틀을 입력해주세요."))
-//                .andExpect(content().string("{}"))
                 .andDo(print());
 
         /**
