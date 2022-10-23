@@ -120,7 +120,39 @@ BUILD SUCCESSFUL in 5s
 <br/>
 
 ## 데이터 검증-1
+- 데이터를 검증하는 이유
+  - client 개발자의 휴먼 에러
+  - client 버그
+  - 외부의 악성코드 등등
+  - DB에 저장할 때 의도치 않은 오류 발생
+  - 서버 개발자의 편안함을 위해서
+- 방법 1 가장 단순 무식한 방법
+  - 장점 : 쉽다.
+  - 단점 : 검증 대상이 늘어날 수록 빡세다. 3번이상 단순 반복을 하고 있다면 내가 뭔가를 잘 못할 수 있다. 그리고 개발자의 휴먼에러로 누락이 발생할 수 있다. 여러 조건의 검증을 수행해야한다. 개발자스럽지 않다.
+```java
+    @PostMapping("/v1/posts4")
+    public  String post4(@RequestBody PostCreate params) throws Exception {
+        log.info("params={}", params.toString());
+        String title = params.getTitle();
+        String content = params.getContent();
 
+        if(title == null || title.equals("")){
+            throw new Exception("타이틀이 없어요.!");
+        }
+
+        if(content == null || content.equals("")){
+            throw new Exception("콘텐츠가 없어요.!");
+        }
+
+        return "test4";
+    }
+```
+
+- 방법2 . spring Validation을 사용한다.
+  - 특정 버전부터는 spring  validation이 포함되지 않기 때문에 의존성 추가가 필수적임.
+  - implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.7.5'
+  - 관련 dependency [링크](https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-validation/2.7.5)
+  - 위 validation을 쓰면 Controller에 도달하기 전에 스프링에서 검증을 하고 예외처리를 해버린다. ( 그래서 400으로 날린다. )
 
 ## 데이터 검증-2
 
