@@ -1,17 +1,12 @@
 package com.hodolog.hodollog.dto;
 
+import lombok.Setter;
 import lombok.ToString;
 
 @ToString
+@Setter
 public class PostCreate {
-    public String title;
-    public String content;
+    private String title;
+    private String content;
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
 }
