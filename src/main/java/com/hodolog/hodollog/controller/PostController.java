@@ -1,5 +1,6 @@
 package com.hodolog.hodollog.controller;
 
+import com.hodolog.hodollog.domain.Post;
 import com.hodolog.hodollog.dto.PostCreate;
 import com.hodolog.hodollog.service.PostService;
 import lombok.RequiredArgsConstructor;
@@ -106,6 +107,13 @@ public class PostController {
     public Map<String, String> post7(@RequestBody @Valid PostCreate params) {
         postService.write(params);
         return Map.of();
+    }
+
+
+    // 글 조회기능 추가
+    @GetMapping("/posts/{postId}")
+    public Post get(@PathVariable(name = "postId") Long Id ) {
+        return postService.get(Id);
     }
 
 

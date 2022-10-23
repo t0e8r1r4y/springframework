@@ -299,8 +299,23 @@ public class Example {
     }
 }
 - ```
+- 서비스에서 리턴값을 던지는 방법
+  - case1 : 저장한 객체 그대로를 던져준다.
+  - case2 : 저장한 객체의 PK만 던져준다.
+  - case3 : 그냥 안던진다.
+  - 대게 2번 정도. 그리고 정상적으로 POST 요청이 처리가 되면 200, 201을 응답하는 것이 일반적이다.
+- 서버에서는 조금 유연하게 대응을 해주는 것이 좋음 ( 가령 case1과 case2를 같이 쓰도록 Api를 만들거나 하면 됨)
 
 ## 게시글 조회 1 - 단건조회
+- 단건 조회 구현 및 테스트 입니다.
+- 서비스에서 임시 예외처리는 아래와 같이 합니다.
+
+```java
+  public Post get(Long id) {
+      Post post = postRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 글입니다."));
+      return post;
+  }
+```
 
 ## 게시글 조회 2 - 응답 클래스 분리
 
