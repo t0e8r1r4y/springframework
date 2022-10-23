@@ -1,5 +1,6 @@
 package com.hodolog.hodollog.dto;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -24,6 +25,12 @@ public class ErrorResponse {
 
     //TODO : 가급적 Map을 직접사용하지 않는다. 꼭 사용한다면 일급 객체를 사용한다. -> 이건 일급 객체로 개선해봐야 함.
     private final Map<String, String> validation = new HashMap<>();
+
+    @Builder
+    public ErrorResponse(String code, String message) {
+        this.code = code;
+        this.message = message;
+    }
 
     public void addValidation(String field, String defaultMessage) {
         this.validation.put(field, defaultMessage);
