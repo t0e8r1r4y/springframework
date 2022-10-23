@@ -154,6 +154,72 @@ BUILD SUCCESSFUL in 5s
   - 관련 dependency [링크](https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-validation/2.7.5)
   - 위 validation을 쓰면 Controller에 도달하기 전에 스프링에서 검증을 하고 예외처리를 해버린다. ( 그래서 400으로 날린다. )
 
+- dto class
+```java
+@ToString
+@Setter
+@Getter
+public class PostCreate {
+
+    @NotBlank(message = "타이틀을 입력해주세요.") // 스프링이 만들어준 title : "must not be blank"
+    private String title;
+
+    @NotBlank(message = "콘텐츠를 입력해주세요.")
+    private String content;
+
+}
+```
+
+- controller -> 데이터 검증 2에서 이 부분에 대해서 손을 볼 예정입니다.
+```java
+  @PostMapping("/v1/posts5")
+  public  Map<String, String> post5(@RequestBody @Valid PostCreate params, BindingResult result) throws Exception {
+      log.info("params={}", params.toString());
+      String title = params.getTitle();
+      String content = params.getContent();
+
+      if(result.hasErrors()) {
+          List<FieldError> fieldErrorList = result.getFieldErrors();
+          FieldError firstFieldError = fieldErrorList.get(0);
+          String fieldName = firstFieldError.getField();
+          String errorMessage = firstFieldError.getDefaultMessage();
+
+          Map<String, String> error = new HashMap<>();
+          error.put(fieldName, errorMessage);
+          return error;
+      }
+
+      return Map.of();
+  }
+```
+
+- 테스트 코드
+```java
+  @Test
+  @DisplayName("/v1/post5 요청 시 타이틀은 필수입니다. spring validation을 사용한 처리 방법입니다.")
+  void post5() throws Exception {
+      mockMvc.perform(post("/v1/posts5")
+                      .contentType(MediaType.APPLICATION_JSON)
+                      .content("{\"titme\": \"\", \"content\": \"내용입니다.\"}"))
+              .andExpect(status().isOk())
+              .andExpect(jsonPath("$.title").value("타이틀을 입력해주세요."))
+//                .andExpect(content().string("{}"))
+              .andDo(print());
+
+      /**
+       * MockHttpServletResponse:
+       *            Status = 200
+       *     Error message = null
+       *           Headers = [Content-Type:"application/json"]
+       *      Content type = application/json
+       *              Body = {"title":"must not be blank"}
+       *     Forwarded URL = null
+       *    Redirected URL = null
+       *           Cookies = []
+       */
+  }
+```
+
 ## 데이터 검증-2
 
 
