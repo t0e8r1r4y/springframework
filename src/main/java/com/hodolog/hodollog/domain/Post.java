@@ -1,10 +1,12 @@
 package com.hodolog.hodollog.domain;
 
 import lombok.Builder;
+import lombok.Getter;
 
 import javax.persistence.*;
 
 @Entity
+@Getter
 public class Post {
 
     @Id

@@ -1,10 +1,10 @@
 package com.hodolog.hodollog.controller;
 
+import com.hodolog.hodollog.domain.Post;
 import com.hodolog.hodollog.repository.PostRepository;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -130,5 +130,9 @@ class PostControllerTest {
                 .andDo(print());
         // then
         Assertions.assertEquals(1L, postRepository.count());
+
+        Post post = postRepository.findAll().get(0);
+        Assertions.assertEquals("제목임다.", post.getTitle());
+        Assertions.assertEquals("내용입니다.", post.getContent());
     }
 }
