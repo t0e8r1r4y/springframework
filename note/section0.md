@@ -360,6 +360,86 @@ public class Example {
 
 
 ## 게시글 조회 5 - 페이징 처리(QeuryDSL)
+- 방법이 조금 어렵지만 호돌맨님의 방식을 따라해보았습니다.
+- 1단계. 그래들에 의존성 추가 [참고자료](http://honeymon.io/tech/2020/07/09/gradle-annotation-processor-with-querydsl.html)
+```
+  implementation 'com.querydsl:querydsl-core'
+  implementation 'com.querydsl:querydsl-jpa'
+  annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jpa" // querydsl JPAAnnotationProcessor 사용 지정
+  annotationProcessor 'jakarta.persistence:jakarta.persistence-api' // java.lang.NoClassDefFoundError(javax.annotation.Entity) 발생 대응
+  annotationProcessor 'jakarta.annotation:jakarta.annotation-api'
+```
+- 2단계. IDE에서 설정. -> annotation 설정이 필요하다.
+- 3단계. config 생성
+```java
+import com.querydsl.jpa.impl.JPAQueryFactory;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+@Configuration
+public class QueryDslConfig {
+    @PersistenceContext
+    public EntityManager em;
+
+    @Bean
+    public JPAQueryFactory jpaQueryFactory(){
+        return new JPAQueryFactory(em);
+    }
+}
+```
+- 4단계. 페이징 쿼리 요청을 받는 것도 dto를 만들어서
+  - 페이지와 사이즈 오프셋 등에 대한 전처리가 dto에서 가능하다.
+```java
+@Getter
+@Setter
+public class PostSearch {
+
+    private static final int MAX_SIZE = 2000;
+    private int page;
+    private int size;
+
+    @Builder
+    public PostSearch(int page, int size) {
+        this.page = page;
+        this.size = size;
+    }
+
+    public long getOffset() {
+        return (long) ( max(1,page) - 1) * Math.min(size,MAX_SIZE);
+    }
+}
+```
+- 5단계. Custom Repository 생성
+```java
+public interface PostRepositoryCustom {
+    List<Post> getList(PostSearch postSearch);
+}
+```
+- 6단계. Custom Repository 구현 클래스 생성
+```java
+@RequiredArgsConstructor
+public class PostRepositoryImpl implements PostRepositoryCustom{
+
+    private final JPAQueryFactory jpaQueryFactory;
+
+    @Override
+    public List<Post> getList(PostSearch postSearch) {
+        return jpaQueryFactory.selectFrom(post)
+                .limit(postSearch.getSize())
+                .offset(postSearch.getOffset())
+                .orderBy(post.id.desc())
+                .fetch();
+    }
+}
+```
+- 7단계 PostRepository에서 extends
+```java
+public interface PostRepository extends JpaRepository<Post,Long>, PostRepositoryCustom {
+}
+```
 
 ## 게시글 수정
 

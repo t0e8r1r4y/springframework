@@ -3,10 +3,13 @@ package com.hodolog.hodollog.service;
 import com.hodolog.hodollog.domain.Post;
 import com.hodolog.hodollog.dto.PostCreate;
 import com.hodolog.hodollog.dto.PostResponse;
+import com.hodolog.hodollog.dto.PostSearch;
 import com.hodolog.hodollog.repository.PostRepository;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -110,5 +113,28 @@ class PostServiceTest {
         assertEquals(posts.get(0).getTitle(), "테스트 제목 - 29");
         assertEquals(posts.get(4).getTitle(), "테스트 제목 - 25");
 
+    }
+
+    @Test
+    void getListByPageDSL() {
+        List<Post> requestPosts = IntStream.range(0,30)
+                .mapToObj( i -> {
+                    return Post.builder().title("테스트 제목 - " + i)
+                            .content("둔촌주공아파트 - " + i)
+                            .build();
+                }).collect(Collectors.toList());
+
+        postRepository.saveAll(requestPosts);
+
+        PostSearch postSearch = PostSearch.builder().page(1).size(10).build();
+
+        List<PostResponse> posts = postService.getListByPageDSL(postSearch);
+
+        for( PostResponse r :  posts ){
+            System.out.println(r.getId() + " " + r.getTitle() + " " + r.getContent());
+        }
+
+        assertEquals(10L,posts.size());
+        assertEquals("테스트 제목 - 29",posts.get(0).getTitle());
     }
 }
