@@ -3,6 +3,7 @@ package com.hodolog.hodollog.service;
 import com.hodolog.hodollog.domain.Post;
 import com.hodolog.hodollog.dto.PostCreate;
 import com.hodolog.hodollog.dto.PostResponse;
+import com.hodolog.hodollog.dto.PostSearch;
 import com.hodolog.hodollog.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -48,7 +49,10 @@ public class PostService {
     }
 
     public List<PostResponse> getListByPage2(Pageable pageable)  {
-
         return postRepository.findAll(pageable).stream().map(PostResponse::new).collect(Collectors.toList());
+    }
+
+    public List<PostResponse> getListByPageDSL(PostSearch postSearch) {
+        return postRepository.getList(postSearch).stream().map(PostResponse::new).collect(Collectors.toList());
     }
 }
