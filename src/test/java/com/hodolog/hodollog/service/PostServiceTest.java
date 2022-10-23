@@ -2,6 +2,7 @@ package com.hodolog.hodollog.service;
 
 import com.hodolog.hodollog.domain.Post;
 import com.hodolog.hodollog.dto.PostCreate;
+import com.hodolog.hodollog.dto.PostResponse;
 import com.hodolog.hodollog.repository.PostRepository;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,10 +50,11 @@ class PostServiceTest {
         Long id = 1L;
 
         // when
-        Post result = postService.get(post.getId());
+        PostResponse result = postService.get(post.getId());
 
         // then
         assertNotNull(result);
+        assertEquals(post.getId(), result.getId());
         assertEquals(post.getTitle(), result.getTitle());
         assertEquals(post.getContent(), result.getContent());
     }

@@ -2,6 +2,7 @@ package com.hodolog.hodollog.controller;
 
 import com.hodolog.hodollog.domain.Post;
 import com.hodolog.hodollog.dto.PostCreate;
+import com.hodolog.hodollog.dto.PostResponse;
 import com.hodolog.hodollog.service.PostService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -112,7 +113,7 @@ public class PostController {
 
     // 글 조회기능 추가
     @GetMapping("/posts/{postId}")
-    public Post get(@PathVariable(name = "postId") Long Id ) {
+    public PostResponse get(@PathVariable(name = "postId") Long Id ) {
         return postService.get(Id);
     }
 

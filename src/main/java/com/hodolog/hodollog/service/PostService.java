@@ -2,6 +2,7 @@ package com.hodolog.hodollog.service;
 
 import com.hodolog.hodollog.domain.Post;
 import com.hodolog.hodollog.dto.PostCreate;
+import com.hodolog.hodollog.dto.PostResponse;
 import com.hodolog.hodollog.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,8 +25,11 @@ public class PostService {
         postRepository.save(postCreate.toEntity());
     }
 
-    public Post get(Long id) {
+    public PostResponse get(Long id) {
         Post post = postRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 글입니다."));
-        return post;
+
+        PostResponse postResponse =  new PostResponse(post);
+
+        return postResponse;
     }
 }
