@@ -73,4 +73,31 @@ public class PostController {
         return Map.of();
     }
 
+    @PostMapping("/v1/posts6")
+    public  Map<String, String> post6(@RequestBody @Valid PostCreate params /*BindingResult result*/) throws Exception {
+        log.info("params={}", params.toString());
+        String title = params.getTitle();
+        String content = params.getContent();
+
+        // 아래 방식의 문제점 -> 매번 메서드 마다 값을 검증 ㅐㅎ야한다. 개발자가 휴먼 에러를 일읠 수 있다. >> 검증 부분에서 버그가 발생 할 수 있다.
+        // 개발자로서 간지가 안난다.
+        // HashMap 보다는 응답 클래스를 만들어 주는 것이 중요합니다.
+        // 여러개의 응답을 줘야하는 경우 처리가 어려울 수 있음.
+        // 세번 이상의 반복적인 작업은 반드시 피해야 한다. -> 코드 && 개발에 관한 모든 것
+        // https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/bind/annotation/ControllerAdvice.html
+
+//        if(result.hasErrors()) {
+//            List<FieldError> fieldErrorList = result.getFieldErrors();
+//            FieldError firstFieldError = fieldErrorList.get(0);
+//            String fieldName = firstFieldError.getField();
+//            String errorMessage = firstFieldError.getDefaultMessage();
+//
+//            Map<String, String> error = new HashMap<>();
+//            error.put(fieldName, errorMessage);
+//            return error;
+//        }
+
+        return Map.of();
+    }
+
 }

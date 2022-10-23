@@ -82,7 +82,6 @@ class PostControllerTest {
                         .content("{\"titme\": \"\", \"content\": \"내용입니다.\"}"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.title").value("타이틀을 입력해주세요."))
-//                .andExpect(content().string("{}"))
                 .andDo(print());
 
         /**
@@ -96,5 +95,17 @@ class PostControllerTest {
          *    Redirected URL = null
          *           Cookies = []
          */
+    }
+
+    @Test
+    void post6() throws Exception {
+        // 위와 다르게 본래 테스트 대상의 메서드에서 BindingResult result를 제거해줘야 한다.
+        mockMvc.perform(post("/v1/posts6")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"titme\": \"\", \"content\": \"내용입니다.\"}"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message").value("잘못된 요청입니다."))
+                .andExpect(jsonPath("$.validation.title").value("타이틀을 입력해주세요."))
+                .andDo(print());
     }
 }
