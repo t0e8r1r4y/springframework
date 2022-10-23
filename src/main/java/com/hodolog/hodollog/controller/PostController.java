@@ -1,6 +1,5 @@
 package com.hodolog.hodollog.controller;
 
-import com.hodolog.hodollog.domain.Post;
 import com.hodolog.hodollog.dto.PostCreate;
 import com.hodolog.hodollog.dto.PostResponse;
 import com.hodolog.hodollog.service.PostService;
@@ -90,17 +89,6 @@ public class PostController {
         // 세번 이상의 반복적인 작업은 반드시 피해야 한다. -> 코드 && 개발에 관한 모든 것
         // https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/bind/annotation/ControllerAdvice.html
 
-//        if(result.hasErrors()) {
-//            List<FieldError> fieldErrorList = result.getFieldErrors();
-//            FieldError firstFieldError = fieldErrorList.get(0);
-//            String fieldName = firstFieldError.getField();
-//            String errorMessage = firstFieldError.getDefaultMessage();
-//
-//            Map<String, String> error = new HashMap<>();
-//            error.put(fieldName, errorMessage);
-//            return error;
-//        }
-
         return Map.of();
     }
 
@@ -113,9 +101,13 @@ public class PostController {
 
     // 글 조회기능 추가
     @GetMapping("/posts/{postId}")
-    public PostResponse get(@PathVariable(name = "postId") Long Id ) {
-        return postService.get(Id);
+    public PostResponse get(@PathVariable(name = "postId") Long postId ) {
+        return postService.get(postId);
     }
 
+    @GetMapping("/posts")
+    public List<PostResponse> getList() {
+        return postService.getList();
+    }
 
 }

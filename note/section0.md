@@ -326,7 +326,7 @@ public class Example {
 - 이 강의에서 개꿀팁은 Gradle에서 Tasks > verification > test 버튼을 누르면 전체 테스트가 한번에 돌아간다.
 
 ## 게시글 조회 3 - 게시글 여러개 조회
-
+- findAll을 사용해서 조회하는 방법
 
 ## 게시글 조회 4 - 페이징 처리
 

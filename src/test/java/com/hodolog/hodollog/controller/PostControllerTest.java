@@ -3,13 +3,20 @@ package com.hodolog.hodollog.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hodolog.hodollog.domain.Post;
 import com.hodolog.hodollog.dto.PostCreate;
+import com.hodolog.hodollog.dto.PostResponse;
 import com.hodolog.hodollog.repository.PostRepository;
+import com.hodolog.hodollog.service.PostService;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -28,6 +35,9 @@ class PostControllerTest {
 
     @Autowired
     private PostRepository postRepository;
+
+    @Autowired
+    private PostService postService;
 
     @BeforeEach
     void setUpDB(){
@@ -160,6 +170,25 @@ class PostControllerTest {
                 .andExpect(jsonPath("$.id").value(post.getId()))
                 .andExpect(jsonPath("$.title").value("foo"))
                 .andExpect(jsonPath("$.content").value("bar"))
+                .andDo(print());
+    }
+
+    @Test
+    @DisplayName("글 여러개 조회")
+    void getList() throws Exception {
+        List<Post> postList = new ArrayList<>();
+        for (int i = 0; i < 100; i++) {
+            postList.add(Post.builder().title("제목"+String.valueOf(i)).content("내용은 없습니다.").build());
+        }
+        postRepository.saveAll(postList);
+
+        List<PostResponse> result = postService.getList();
+
+        mockMvc.perform(get("/posts").contentType(APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.length()", Matchers.is(100)))
+                .andExpect(jsonPath("$[0].id").value(1L))
+                .andExpect(jsonPath("$[50].title").value("제목50"))
                 .andDo(print());
     }
 }

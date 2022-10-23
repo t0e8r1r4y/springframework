@@ -8,7 +8,11 @@ import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 class PostServiceTest {
@@ -57,5 +61,29 @@ class PostServiceTest {
         assertEquals(post.getId(), result.getId());
         assertEquals(post.getTitle(), result.getTitle());
         assertEquals(post.getContent(), result.getContent());
+    }
+
+    @Test
+    @DisplayName("글 여러개 조회")
+    void getList() {
+        //given
+        List<Post> postList = new ArrayList<>();
+        for (int i = 0; i < 100; i++) {
+            postList.add(Post.builder().title("제목"+String.valueOf(i)).content("내용은 없습니다.").build());
+        }
+        postRepository.saveAll(postList);
+
+        // when
+        List<PostResponse> postResultList = postService.getList();
+
+        assertNotNull(postResultList);
+        assertEquals(100, postResultList.size());
+        for (int i = 0; i < 100; i++) {
+            assertEquals(postList.get(i).getId(), postResultList.get(i).getId());
+            assertEquals(postList.get(i).getTitle(), postResultList.get(i).getTitle());
+            assertEquals(postList.get(i).getContent(), postResultList.get(i).getContent());
+        }
+
+
     }
 }
