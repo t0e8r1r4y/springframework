@@ -74,7 +74,7 @@ public class PostController {
     }
 
     @PostMapping("/v1/posts6")
-    public  Map<String, String> post6(@RequestBody @Valid PostCreate params, BindingResult result) throws Exception {
+    public  Map<String, String> post6(@RequestBody @Valid PostCreate params /*BindingResult result*/) throws Exception {
         log.info("params={}", params.toString());
         String title = params.getTitle();
         String content = params.getContent();
@@ -86,16 +86,16 @@ public class PostController {
         // 세번 이상의 반복적인 작업은 반드시 피해야 한다. -> 코드 && 개발에 관한 모든 것
         // https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/bind/annotation/ControllerAdvice.html
 
-        if(result.hasErrors()) {
-            List<FieldError> fieldErrorList = result.getFieldErrors();
-            FieldError firstFieldError = fieldErrorList.get(0);
-            String fieldName = firstFieldError.getField();
-            String errorMessage = firstFieldError.getDefaultMessage();
-
-            Map<String, String> error = new HashMap<>();
-            error.put(fieldName, errorMessage);
-            return error;
-        }
+//        if(result.hasErrors()) {
+//            List<FieldError> fieldErrorList = result.getFieldErrors();
+//            FieldError firstFieldError = fieldErrorList.get(0);
+//            String fieldName = firstFieldError.getField();
+//            String errorMessage = firstFieldError.getDefaultMessage();
+//
+//            Map<String, String> error = new HashMap<>();
+//            error.put(fieldName, errorMessage);
+//            return error;
+//        }
 
         return Map.of();
     }
