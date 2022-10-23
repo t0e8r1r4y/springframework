@@ -1,6 +1,5 @@
 package com.hodolog.hodollog.controller;
 
-import com.hodolog.hodollog.domain.PostEditor;
 import com.hodolog.hodollog.dto.PostCreate;
 import com.hodolog.hodollog.dto.PostEdit;
 import com.hodolog.hodollog.dto.PostResponse;

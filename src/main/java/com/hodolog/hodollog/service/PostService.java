@@ -11,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,11 +36,6 @@ public class PostService {
     }
 
     public List<PostResponse> getList() {
-        // 아래는 좋지 않은 코드 작성 예시
-//        return postRepository.findAll().stream().map(post -> PostResponse.builder()
-//                                                                        .post(post)
-//                                                                        .build())
-//                                                .collect(Collectors.toList());
         return postRepository.findAll().stream().map(PostResponse::new).collect(Collectors.toList());
     }
 
