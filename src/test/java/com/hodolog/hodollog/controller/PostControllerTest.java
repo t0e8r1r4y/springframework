@@ -58,8 +58,7 @@ class PostControllerTest {
         mockMvc.perform(post("/v1/posts4")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"titme\": \"제목입니다.\", \"content\": \"내용입니다.\"}"))
-                .andExpect(status().isOk())
-                .andExpect(content().string("test4"))
+                .andExpect(status().isBadRequest())
                 .andDo(print());
     }
 
@@ -69,8 +68,7 @@ class PostControllerTest {
         mockMvc.perform(post("/v1/posts4")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"titme\": \"\", \"content\": \"내용입니다.\"}"))
-                .andExpect(status().isOk())
-                .andExpect(content().string("test4"))
+                .andExpect(status().isBadRequest())
                 .andDo(print());
     }
 
@@ -80,7 +78,6 @@ class PostControllerTest {
         mockMvc.perform(post("/v1/posts5")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"titme\": \"\", \"content\": \"내용입니다.\"}"))
-                .andExpect(status().isOk())
                 .andExpect(jsonPath("$.title").value("타이틀을 입력해주세요."))
                 .andDo(print());
 
