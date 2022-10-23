@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import java.util.HashMap;
-import java.util.Map;
 
 @ControllerAdvice
 public class ExceptionController {
@@ -19,19 +17,11 @@ public class ExceptionController {
     @ResponseBody
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ErrorResponse invalidRequestHandler(MethodArgumentNotValidException e){
-//        FieldError fieldError = e.getFieldError();
-//        String field = fieldError.getField();
-//        String message = fieldError.getDefaultMessage();
-//
-//        Map<String, String> response  = new HashMap<>();
-//        response.put(field,message);
+        // TODO : 이렇게 처리를 하면 에러 내용의 일관성이 부족해짐. 이것에 대해서는 별도의 처리가 필요함. -> 그리고 서비스 기획시 프론트와 백엔드간 협의가 필요한 사항임
         ErrorResponse response =  new ErrorResponse("400", "잘못된 요청입니다.");
-
         for(FieldError fieldError : e.getFieldErrors()) {
             response.addValidation(fieldError.getField(), fieldError.getDefaultMessage());
         }
-
         return response;
-
     }
 }

@@ -21,9 +21,13 @@ import java.util.Map;
 public class ErrorResponse {
     private final String code;
     private final String message;
-    private Map<String, String> validation = new HashMap<>();
+
+    // 가급적 Map을 직접사용하지 않는다. 꼭 사용한다면 일급 객체를 사용한다. -> 이건 일급 객체로 개선해봐야 함.
+    private final Map<String, String> validation = new HashMap<>();
 
     public void addValidation(String field, String defaultMessage) {
         this.validation.put(field, defaultMessage);
     }
+
+
 }
