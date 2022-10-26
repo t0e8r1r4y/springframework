@@ -67,6 +67,7 @@
 
 ##  :purse: 기타
 - [16 Best Practices in Spring Boot Production](https://medium.com/@hubian/16-best-practices-in-spring-boot-production-62c065a6145c)
+- [스프링 프레임워크 API 문서화](https://docs.spring.io/spring-restdocs/docs/current/reference/html5/#documenting-your-api-request-parameters)
 
 
 ---
