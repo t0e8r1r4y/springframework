@@ -3,7 +3,7 @@
   <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcuSahr_aLdlNT-wkMm8wd06qPnlLK-8uI1Q&usqp=CAU"  width=600"></a>
   <br>
   <br>
-     스프링 프
+     스프링 프레임워크
   <br>
   <br>
 </h1>
