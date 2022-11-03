@@ -57,6 +57,7 @@
 - @Transactional
 - [@Async](https://brunch.co.kr/@springboot/401)
 - [@scheduled](https://github.com/t0e8r1r4y/springframewordk/blob/main/annotation/schedule.md)
+- [@ControllerAdvice]
 
 ## :strawberry: 빌드 도구
 - Maven
