@@ -22,3 +22,11 @@
 3. named Lock 활용하기
    - 이름과 함께 lock 을획득합니다.
    - 해당 lock 은 다른세션에서 획득 및 해제가 불가능합니다.
+
+
+## Redis를 사용한 동시성 제어
+1. Lettuce
+   - setnx 명령어를 활용하여 분산락 구현
+   - sprin lock 방식
+2. Redission
+   - pub-sub 기반으로 lock 구현 제공
