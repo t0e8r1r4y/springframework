@@ -14,7 +14,7 @@ public class StockService {
         this.stockRepository = stockRepository;
     }
 
-    @Transactional
+//    @Transactional
     public synchronized void decrease(Long id, Long quantity) {
         // tranaction을 사용하면 영속성 context에 데이터를 넣어두고 DB에 쓰기 까지 Gap이 생기면서 원하는 결과 처리가 안된다.
         // java에서 제공하는 synchronized는 각 프로세스 안에서만 보장이 가능함
