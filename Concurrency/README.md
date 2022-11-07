@@ -61,3 +61,4 @@
 - https://dev.mysql.com/doc/refman/8.0/en/glossary.html#glos_exclusive_lock
 - https://dev.mysql.com/doc/refman/8.0/en/innodb-locking.html
 - https://dev.mysql.com/doc/refman/8.0/en/locking-functions.html
+- [줌 인터넷 기술 블로그](https://github.com/hgs-study/redis-sorted-set-practice)
