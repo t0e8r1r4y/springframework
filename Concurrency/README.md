@@ -1,14 +1,12 @@
 # Concurrency
 
-## 참고자료
-- [git](https://github.com/sangyongchoi/stock-example)
-- [doc](https://docs.google.com/document/d/1Nax0Q0dQpE0dlGFdro65kRZE_7wkmBbxrgCmcdhCJ0o/edit)
-- https://dev.mysql.com/doc/refman/8.0/en/glossary.html#glos_exclusive_lock
-- https://dev.mysql.com/doc/refman/8.0/en/innodb-locking.html
-- https://dev.mysql.com/doc/refman/8.0/en/locking-functions.html
-
+> java/spring framework에서 동시성 제어 이슈를 다뤄봅니다.  
 
 <br/>
+
+## Java에서 제공하는 동시성 제어
+- Java에서는 Synchronize를 사용해서 동시성을 제어할 수 있습니다.
+- 다만 위 방식의 단점은 하나의 서버 어플리케이션 내부에서만 동기화가 맞춰지기 때문에 분산 시스템에서는 동기화가 이뤄지지 않을 수 있음.
 
 ## Database 를 활용하여 레이스컨디션 해결해보기
 1. Optimistic Lock  
@@ -54,3 +52,12 @@
 #### Redis
 - 활용중인 Redis 가 없다면 별도의 구축비용과 인프라 관리비용이 발생한다.
 - Mysql 보다 성능이 좋다.
+
+<br/>
+
+## 참고자료
+- [git](https://github.com/sangyongchoi/stock-example)
+- [doc](https://docs.google.com/document/d/1Nax0Q0dQpE0dlGFdro65kRZE_7wkmBbxrgCmcdhCJ0o/edit)
+- https://dev.mysql.com/doc/refman/8.0/en/glossary.html#glos_exclusive_lock
+- https://dev.mysql.com/doc/refman/8.0/en/innodb-locking.html
+- https://dev.mysql.com/doc/refman/8.0/en/locking-functions.html
