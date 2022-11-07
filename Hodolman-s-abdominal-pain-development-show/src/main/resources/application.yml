@@ -1,0 +1,24 @@
+spring:
+  profiles:
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: create-drop
+  h2:
+    console:
+      enabled: true
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: true
+  data:
+    web:
+      pageable:
+        one-indexed-parameters: true
+        default-page-size: 10
