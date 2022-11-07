@@ -38,7 +38,7 @@ class NamedLockStockFacadeTest {
     @Test
     void decrease() throws InterruptedException {
         int threadCount = 100;
-        ExecutorService executorService = Executors.newFixedThreadPool(32);
+        ExecutorService executorService = Executors.newFixedThreadPool(8);
         CountDownLatch latch = new CountDownLatch(threadCount);
 
         for (int i = 0; i < threadCount; i++) {
