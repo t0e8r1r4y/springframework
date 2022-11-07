@@ -12,18 +12,46 @@
 # springframework
                                                                          
 ## 소개
-- spring framework와 관련 내용을 정리합니다.
-- 여러개의 프로젝트를 하나로 관리하는 과정에서 설정파일에 개인정보 관리가 귀찮아서 application.properties와 yml 파일은 반드시 `local`에서 잘 관리
+- spring framework와 관련 내용을 정리합니다. 
+- DB 접근하는 방법들, 동시성 제어, 예외처리, EDP 등 주요 학습 내용을 정리합니다.
+- 정리는 `실전 압축 근육`과 그것을 뒷받침하는 `세부 이론`을 중심으로 정리합니다.
 
-## :trident: 공식 도큐먼트
-                                                                                                                                               
+<br/>
+
+---
+# `실전 압축 근육` : 요렇게 사용하면 좋다더라하는 것들 위주로 한번 정리해봅니다.
+
+## 데이터 접근 기술
+
+<br/>
+
+## 동시성 제어
+
+<br/>
+
+---
+# 실전 압축 근육의 `탄탄한 베이스`
+
+> 실무에서 사용되는 기술 스택들의 베이스가 되는 원론적인 이야기들을 좀 정리해보고자 합니다.
+
+
+<br/>
+
+
+## :trident: 공식 도큐먼트                                                                                                                              
 | TITLE | LINK |
 | ------ | ------ |
 | 스프링 공식문서 | [link][스프링공식] |
 | 토리맘의 한글 번역 | [link][스프링공식번역] |
 | Spring Initializr | [link][스프링프로젝트생성] |
 | 스프링 프레임워크에서 제공하는 의존성과 관련 예시 | [link][스프링의존성예시] |
-                                                                         
+
+
+
+<br/>
+
+
+
 ## :crown: 스프링에 대한 모든것 ( 필요한 내용 하나씩 번역하고 정리 )
 
 | 구분 | 종류 |
@@ -39,11 +67,17 @@
 | Appendix | Spring properties. |
 | Wiki | What’s New, Upgrade Notes, Supported Versions, and other cross-version information. |
                                                                          
-                                                                         
-                                                                         
+
+<br/>
                                                                          
                                                                          
 ## :heavy_plus_sign: 설정파일 관리하기
+
+
+
+<br/>
+
+
 
 
 ##  :custard: 데이터베이스 연결 및 설정, 사용 관련 팁
@@ -53,18 +87,51 @@
 - [JPA 자동 생성 쿼리 메소드 명명 규칙](https://github.com/t0e8r1r4y/springframewordk/blob/main/hibernate/JPA_AutoGenQuery.md)
 - [QueryDSL 사용하기](https://ict-nroo.tistory.com/117)
 
+
+
+
+<br/>
+
+
+
+
 ## :green_apple: 어노테이션 정리
 - @Transactional
 - [@Async](https://brunch.co.kr/@springboot/401)
 - [@scheduled](https://github.com/t0e8r1r4y/springframewordk/blob/main/annotation/schedule.md)
-- [@ControllerAdvice]
+- @ControllerAdvice
+
+
+
+
+<br/>
+
+
+
 
 ## :strawberry: 빌드 도구
 - Maven
 - Gradle
 
+
+
+
+<br/>
+
+
+
+
+
 ## :banana: 오픈소스 연계
 - [spring  + 프로메테우스로 모니터링 하기](https://github.com/t0e8r1r4y/springframewordk/tree/main/prometheus_spring)
+
+
+
+
+<br/>
+
+
+
 
 ##  :purse: 기타
 - [16 Best Practices in Spring Boot Production](https://medium.com/@hubian/16-best-practices-in-spring-boot-production-62c065a6145c)
